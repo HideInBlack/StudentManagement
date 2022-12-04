@@ -1,0 +1,13 @@
+eclipse.preferences.version=1
+encoding//WebContent/src/admin/addClass.html=UTF-8
+encoding//WebContent/src/admin/addCourse.html=UTF-8
+encoding//WebContent/src/admin/addStudent.html=UTF-8
+encoding//WebContent/src/admin/addTeacher.html=UTF-8
+encoding//WebContent/src/admin/adminManage.html=UTF-8
+encoding//WebContent/src/student/oneManage.html=UTF-8
+encoding//WebContent/src/student/scoreCount.html=UTF-8
+encoding//WebContent/src/student/scoreSearch.html=UTF-8
+encoding//WebContent/src/teacher/manageScore.html=UTF-8
+encoding//WebContent/src/teacher/manageStudent.html=UTF-8
+encoding//WebContent/src/teacher/scoreCount.html=UTF-8
+encoding//src/utils/LayuiUtil.java=UTF-8

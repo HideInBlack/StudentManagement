@@ -1,0 +1,222 @@
+<link rel="stylesheet" href="../utils/layui/css/layui.css">
+<script src="../utils/layui/layui.js"></script>
+<script src="../utils/layui/font/jquery-3.4.1.min.js"></script>
+<script src="../utils/getForm.js"></script>
+<style type="text/css">
+	.layui-anim.layui-anim-upbit {
+		height: 150px;
+	}
+</style>
+
+<div class="content" style="margin-left: 40px;margin-right: 40px;margin-top: 5px;">
+	<!-- 轮播图 -->
+	<div class="layui-carousel " id="test10">
+		<div carousel-item="" class="con-carousel">
+			<div>
+				<img src="../utils/image/夕阳屋顶.jpg" style="width: 100%;height: 100%;">
+			</div>
+			<div>
+				<img src="../utils/image/天空1.jpg" style="width: 100%;height: 100%;">
+			</div>
+			<div>
+				<img src="../utils/image/树叶.jpg" style="width: 100%;height: 100%;">
+			</div>
+			<div>
+				<img src="../utils/image/天空风车.jpg" style="width: 100%;height: 120%;">
+			</div>
+		</div>
+	</div><br /><br />
+
+	<div class="dzy_content">
+		<div class="layui-row layui-col-space20">
+			<div class="layui-col-md8">
+
+				<h3 id="head" class="tiosite-h3 tiosite-title" style="font-family: '楷体';font-size: 25px;"><i class="layui-icon"
+					 style="font-size: 24px;">&#xe756;</i>
+					神秘我</h3>
+				<hr class="layui-bg-green" />
+				<div id="formText" style="margin-left: 100px;margin-right: 100px;">
+					<form class="layui-form" action="" lay-filter="form_update" id="form_update">
+						<div class="layui-form-item">
+							<label class="layui-form-label">学生姓名：</label>
+							<div class="layui-input-block">
+								<input type="text" name="name" required lay-verify="required" disabled style="background-color:transparent;border:0;"
+								 autocomplete="off" class="layui-input">
+							</div>
+						</div>
+						<div class="layui-form-item">
+							<label class="layui-form-label">学号：</label>
+							<div class="layui-input-block">
+								<input type="text" name="studentId" required lay-verify="required" disabled style="background-color:transparent;border:0;"
+								 autocomplete="off" class="layui-input">
+							</div>
+						</div>
+						<div class="layui-form-item">
+							<label class="layui-form-label">性别：</label>
+							<div class="layui-input-block">
+								<input type="radio" name="sex" value="1" title="男" disabled>
+								<input type="radio" name="sex" value="0" title="女" disabled>
+							</div>
+						</div>
+						<div class="layui-form-item">
+							<label class="layui-form-label">新密码：</label>
+							<div class="layui-input-inline">
+								<input type="password" name="password" required lay-verify="required" placeholder="请输入密码" autocomplete="off"
+								 class="layui-input">
+							</div>
+						</div>
+						<div class="layui-form-item">
+							<label class="layui-form-label">确认密码：</label>
+							<div class="layui-input-inline">
+								<input type="password" name="makepassword" required lay-verify="required" placeholder="请再次输入密码" autocomplete="off"
+								 class="layui-input">
+							</div>
+							<div class="layui-form-mid layui-word-aux">是否修改密码？</div>
+						</div>
+						<div class="layui-form-item">
+							<label class="layui-form-label">爱好选择：</label>
+							<div class="layui-input-block">
+								<input type="checkbox" name="like[write]" title="写作">
+								<input type="checkbox" name="like[read]" title="阅读" checked>
+								<input type="checkbox" name="like[dai]" title="发呆">
+							</div>
+						</div>
+						<div class="layui-form-item">
+							<label class="layui-form-label">电话：</label>
+							<div class="layui-input-block">
+								<input type="text" name="tel" required lay-verify="required" autocomplete="off" class="layui-input">
+							</div>
+						</div>
+						<div class="layui-form-item layui-form-text">
+							<label class="layui-form-label">备注格言：</label>
+							<div class="layui-input-block">
+								<textarea name="memo" placeholder="请输入内容" class="layui-textarea"></textarea>
+							</div>
+						</div>
+						<div class="layui-form-item">
+							<div class="layui-input-block">
+								<button class="layui-btn" lay-submit lay-filter="formDemo" type="button" onclick="updateOne()">立即提交</button>
+								<button type="reset" class="layui-btn layui-btn-primary">重置</button>
+							</div>
+						</div>
+					</form>
+				</div>
+
+			</div>
+			<div class="layui-col-md4" style="font-family: '楷体';">
+				<div>
+					<blockquote class="layui-elem-quote layui-bg-green" style="font-size: 23px;"><i class="layui-icon layui-icon-snowflake"
+						 style="font-size: 22px;"></i> 这就是我</blockquote><br />
+					<ul class="layui-timeline">
+						<li class="layui-timeline-item">
+							<i class="layui-icon layui-timeline-axis" style="font-size: 24px;">&#xe66f;</i>
+							<div class="layui-timeline-content layui-text">
+								<h3 class="layui-timeline-title">你好，我的名字</h3>
+								<ul>
+									<li>董政宇 性别：男</li>
+								</ul>
+							</div>
+						</li>
+						<li class="layui-timeline-item">
+							<i class="layui-icon layui-timeline-axis" style="font-size: 24px;">&#xe62e;</i>
+							<div class="layui-timeline-content layui-text">
+								<h3 class="layui-timeline-title">你猜，我班级</h3>
+								<ul>
+									<li>
+										学号：15173700662 学院：信息学院 班级：软件17-1BF
+									</li>
+								</ul>
+							</div>
+						</li>
+						<li class="layui-timeline-item">
+							<i class="layui-icon layui-timeline-axis" style="font-size: 24px;">&#xe664;</i>
+							<div class="layui-timeline-content layui-text">
+								<h3 class="layui-timeline-title">格言</h3>
+								<ul>
+									<li>备注信息为：长风破浪会有时，直挂云帆济沧海</li>
+								</ul>
+							</div>
+						</li>
+						<li class="layui-timeline-item">
+							<i class="layui-icon layui-timeline-axis" style="font-size: 24px;">&#xe636;</i>
+						</li>
+					</ul>
+				</div>
+
+			</div>
+		</div>
+	</div>
+	<br />
+</div>
+<script>
+	layui.use(['element', 'form', 'table', 'layer', 'carousel', 'laytpl'], function() {
+		var element = layui.element;
+		var table = layui.table;
+		var form = layui.form;
+		var $ = layui.$;
+		var layer = layui.layer;
+		var carousel = layui.carousel;
+		var laytpl = layui.laytpl;
+		//图片轮播
+		carousel.render({
+			elem: '#test10',
+			interval: 2000,
+			arrow: 'always',
+			indicator: 'none',
+			width: '100%',
+			height: '60%'
+		});
+		$.ajax({
+			url: "/StudentManagement/getStudent.studentm?pageNumber=1&pageSize=10&key=7",
+			type: 'GET',
+			dataType: 'json',
+			success: function(res) {
+				form.val("form_update", {
+					"studentId": res.data[0].student_id,
+					"name": res.data[0].name,
+					"tel": res.data[0].tel,
+					"sex": res.data[0].sex,
+					"memo": res.data[0].memo
+				});
+				form.render();
+				window.updateOne = function() {
+					var JSONdata = JSON.parse(JSON.stringify($('#form_update').serializeObject()));
+					if(JSONdata.password != JSONdata.makepassword){
+						layer.msg("两次密码不一样！")
+					}else{
+						$.ajax({
+							url: "/StudentManagement/updateOne.student",
+							type: 'POST',
+							data: {
+								"studentId": res.data[0].student_id,
+								"password": JSONdata.password,
+								"tel": JSONdata.tel,
+								"memo": JSONdata.memo
+							},
+							dataType: 'json',
+							success: function(res) {
+								if (res.ok) {
+									layer.msg(res.msg, {
+										shade: 0.1,
+										time: 5000, //5s后自动关闭
+										btn: '知道了',
+										btnAlign: 'c' //按钮居中
+									}, function(index) {
+										layer.close(index);
+										layer.closeAll();
+									});
+								} else {
+									layer.msg(res.msg);
+								}
+							}
+						})
+					}	
+				}
+			}
+		});
+
+		form.render();
+
+
+	});
+</script>

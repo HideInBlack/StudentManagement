@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://java.sun.com/xml/ns/javaee"
+	xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+	version="2.5">
+	
+	<servlet>
+		<servlet-name>LoginSome</servlet-name>
+		<servlet-class>controller.shareC.LoginSome</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>LoginSome</servlet-name>
+		<url-pattern>*.login</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>CourseManage</servlet-name>
+		<servlet-class>controller.adminC.CourseManage</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>CourseManage</servlet-name>
+		<url-pattern>*.course</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>TeacherManage</servlet-name>
+		<servlet-class>controller.adminC.TeacherManage</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>TeacherManage</servlet-name>
+		<url-pattern>*.teacherm</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>StudentManage</servlet-name>
+		<servlet-class>controller.adminC.StudentManage</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>StudentManage</servlet-name>
+		<url-pattern>*.studentm</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>ClassManage</servlet-name>
+		<servlet-class>controller.adminC.ClassManage</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ClassManage</servlet-name>
+		<url-pattern>*.classm</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>ManageKlassStudent</servlet-name>
+		<servlet-class>controller.teacherC.ManageKlassStudent</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ManageKlassStudent</servlet-name>
+		<url-pattern>*.klasstudent</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>Student</servlet-name>
+		<servlet-class>controller.studentC.Student</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Student</servlet-name>
+		<url-pattern>*.student</url-pattern>
+	</servlet-mapping>
+</web-app>

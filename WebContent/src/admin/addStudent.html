@@ -1,0 +1,444 @@
+<link rel="stylesheet" href="../utils/layui/css/layui.css">
+<script src="../utils/layui/layui.js"></script>
+<script src="../utils/layui/font/jquery-3.4.1.min.js"></script>
+<script src="../utils/getForm.js"></script>
+<style type="text/css">
+	.layui-anim.layui-anim-upbit {
+		height: 150px;
+	}
+</style>
+<blockquote class="layui-elem-quote" style="font-family: '楷体';font-size: 21px;">学生管理中心</blockquote>
+
+<div style="margin-left: 40px;margin-right: 40px;margin-top: 30px">
+
+	<table class="layui-hide" id="LAY_table_user" lay-filter="demo"></table>
+</div>
+
+<script type="text/html" id="barDemo">
+	<a class="layui-btn layui-btn-xs layui-btn-normal" lay-event="update">修改</a>
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+</script>
+<script type="text/html" id="toolbarDemo">
+	<div class="layui-btn-container">
+    <button class="layui-btn layui-btn-sm layui-btn-normal" lay-event="addCourse"><i class="layui-icon layui-icon-add-1"></i>添加学生</button>
+	<button class="layui-btn layui-btn-sm layui-btn-danger" lay-event="deleteCourse"><i class="layui-icon layui-icon-delete"></i>批量删除</button>
+	<div class="layui-inline">
+			<input class="layui-text" name="courseName" id="demoReload" autocomplete="off"  placeholder="学生名字..." style="width: 150px;height: 30px;  margin-bottom: 10px;">
+	</div>
+	<button class="layui-btn layui-btn-sm layui-btn-normal" lay-event="reload"><i class="layui-icon layui-icon-search" ></i></button>
+  </div>
+</script>
+<script id="scriptAcademy" type="text/html">
+	<!-- <form class="layui-form" lay-filter="formAcademy">-->
+	<label class="layui-form-label" >班级</label>
+	<div class="layui-input-inline name" style="display:inline-block;"> 
+	<select name="class" lay-filter="type_select1" id="type_select" >
+	<option value=""></option>
+	{{#layui.each(d.academy_data, function(index, item){ }}
+	<option value={{ item.id }}>
+	<span>{{ item.name}}</span>
+	</option>
+	{{# }); }}
+	</select> 
+	</div>
+	<!-- </form> -->
+</script>
+
+<script>
+	//layui.JavaScript代码区域
+	layui.use(['element', 'form', 'table', 'layer'], function() {
+		var element = layui.element;
+		var table = layui.table;
+		var form = layui.form;
+		var $ = layui.$;
+		var layer = layui.layer;
+		form.render();
+		//方法级渲染
+		table.render({
+			elem: '#LAY_table_user',
+			url: '/StudentManagement/getStudent.studentm',
+			toolbar: '#toolbarDemo', //开启头部工具栏，并为其绑定左侧模板
+			request: {
+				pageName: 'pageNumber',
+				limitName: 'pageSize'
+			},
+			cols: [
+				[{
+						type: 'checkbox',
+						fixed: 'left'
+					}, {
+						field: 'id',
+						title: 'ID',
+						width: 100,
+						sort: true,
+						fixed: true
+					}, {
+						field: 'student_id',
+						title: '学号',
+						align: 'center'
+					},
+					{
+						field: 'name',
+						title: '名字',
+						align: 'center'
+					}, {
+						field: 'sex',
+						title: '性别',
+						align: 'center',
+						templet: function(d){
+							if(d.sex == 1){
+								return "男";
+							}else if(d.sex == 0){
+								return "女";
+							}else{
+								return "未知";
+							}
+							
+						}
+					}, {
+						field: 'tel',
+						title: '电话',
+						align: 'center'
+					}, {
+						field: 'class',
+						title: '班级',
+						align: 'center'
+					}, {
+						field: 'academy',
+						title: '学院',
+						align: 'center'
+					}, {
+						field: 'memo',
+						title: '备注',
+						align: 'center'
+					}, {
+						fixed: 'right',
+						title: '课程操作',
+						align: 'center',
+						toolbar: '#barDemo'
+					}
+				]
+			],
+			id: 'testReload',
+			page: true,
+			limit: 10,
+			height: 545
+		});
+
+		//头工具栏事件
+		table.on('toolbar(demo)', function(obj) {
+			var checkStatus = table.checkStatus(obj.config.id);
+			var data = checkStatus.data; //获取选中的数据
+			switch (obj.event) {
+				case 'addCourse':
+					layer.open({
+						type: 1,
+						title: '正在添加学生...', //标题栏
+						closeBtn: false,
+						area: ['450px', '470px'],
+						shade: 0,
+						id: 'LAY_layuipro', //设定一个id，防止重复弹出 
+						btn: ['提交', '关闭'],
+						btnAlign: 'c',
+						moveType: 1, //拖拽模式，0或者1
+						content: '<br><br><div style="margin-left: 40px;margin-right: 40px">' +
+							'<form class="layui-form" action="" id="table_add" lay-filter="form_add">' +
+							'<div class="layui-form-item">' +
+							'<label class="layui-form-label">学号</label>' +
+							'<div class="layui-input-block">' +
+							'<input type="text" name="student_id" required  lay-verify="required"  placeholder="学号" autocomplete="off" class="layui-input">' +
+							'</div>' +
+							' </div>' +
+							
+							'<div class="layui-form-item">' +
+							'<label class="layui-form-label">学生姓名</label>' +
+							'<div class="layui-input-block">' +
+							'<input type="text" name="name" required  lay-verify="required"  placeholder="名字" autocomplete="off" class="layui-input">' +
+							'</div>' +
+							' </div>' +
+
+							//view区域
+							'<div id="viewAcademy"></div> <br>' +
+
+							'<div class="layui-form-item" >' +
+							'<label class="layui-form-label">性别</label>' +
+							'<div class="layui-input-block">' +
+							'<input type="radio" name="sex" value="1" title="男">' +
+							'<input type="radio" name="sex" value="0" title="女" checked>' +
+							'</div>' +
+							' </div>' +
+
+							'<div class="layui-form-item">' +
+							'<label class="layui-form-label">电话</label>' +
+							'<div class="layui-input-block">' +
+							'<input type="text" name="tel" required  lay-verify="required"  placeholder="电话" autocomplete="off" class="layui-input">' +
+							'</div>' +
+							' </div>' +
+
+							'<div class="layui-form-item">' +
+							'<label class="layui-form-label">备注信息</label>' +
+							'<div class="layui-input-block">' +
+							'<input type="text" name="memo" required  lay-verify="required" placeholder="备注信息" autocomplete="off" class="layui-input">' +
+							'</div>' +
+							' </div>' +
+							'  </form>' +
+							'</div>',
+						success: function() {
+							getAcademy();
+							form.render();
+						},
+						yes: function() {
+							var JSONdata = JSON.parse(JSON.stringify($('#table_add').serializeObject()));
+							console.log(JSONdata);
+							if (JSONdata.name == "" || JSONdata.student_id =="" || JSONdata.sex == "" || JSONdata.tel == "" ||JSONdata.class ==""  ) {
+								layer.msg("请先完善必需信息！");
+							} else {
+								$.ajax({
+									url: "/StudentManagement/addStudent.studentm",
+									type: 'POST',
+									data: {
+										"student_id":JSONdata.student_id,
+										"name": JSONdata.name,
+										"sex": JSONdata.sex,
+										"tel": JSONdata.tel,
+										"klass":JSONdata.class,
+										"memo": JSONdata.memo
+									},
+									dataType: 'json',
+									success: function(res) {
+										if (res.ok) {
+											layer.msg(res.msg, {
+												shade: 0.1 ,
+												time: 5000, //5s后自动关闭
+												btn: '知道了',
+												btnAlign: 'c' //按钮居中
+											}, function(index) {
+												layer.close(index);
+												layer.closeAll();
+											});
+										} else {
+											layer.msg(res.msg);
+										}
+										table.reload('testReload');
+									}
+								})
+							}
+
+						}
+					});
+					break;
+				case 'reload':
+					var demoReload = $('#demoReload');
+					//执行重载
+					table.reload('testReload', {
+						url: '/StudentManagement/getStudent.studentm?search=' + demoReload.val(),
+						page: {
+							curr: 1 //重新从第 1 页开始
+						}
+					}, 'data');
+					break;
+				case 'deleteCourse':
+					//批量删除操作
+					var ids = "";
+					for (var ind = 0; ind < data.length; ind++) {
+						ids = ids + data[ind].id + ",";
+					}
+					if (ids == "") {
+						layer.msg("批量删除得至少选择一个！")
+					} else {
+						layer.confirm('真的确定删除所选择的全部课程吗？', function(index) {
+							$.ajax({
+								url: "/StudentManagement/deleteStudent.studentm",
+								type: 'POST',
+								data: {
+									"id": ids,
+									"order": "2"
+								},
+								dataType: 'json',
+								success: function(res) {
+									console.log(res);
+									if (res.ok) {
+										layer.msg(res.msg, {
+											shade: 0.1 ,
+											time: 5000, //5s后自动关闭
+											btn: '知道了',
+											btnAlign: 'c' //按钮居中
+										}, function(index) {
+											layer.close(index);
+											layer.closeAll();
+										});
+									} else {
+										layer.msg(res.msg);
+									}
+									table.reload('testReload');
+								}
+							})
+							layer.close(index);
+						});
+					}
+					break;
+			};
+		});
+		
+		//监听工具条
+		table.on('tool(demo)', function(obj) {
+			var data = obj.data;
+			if (obj.event === 'update') {
+				layer.open({
+					type: 1,
+					title: '正在修改学生信息...', //标题栏
+					closeBtn: false,
+					area: ['430px', '470px'],
+					shade: 0,
+					id: 'LAY_layuipro1', //设定一个id，防止重复弹出 
+					btn: ['修改', '关闭'],
+					btnAlign: 'c',
+					moveType: 1, //拖拽模式，0或者1
+					content: '<br><br><div style="margin-left: 40px;margin-right: 40px">' +
+						'<form class="layui-form" action="" id="table_update" lay-filter="form_update">' +
+						'<div class="layui-form-item">' +
+						'<label class="layui-form-label">学号</label>' +
+						'<div class="layui-input-block">' +
+						'<input type="text" name="student_id" required style="background-color:transparent;border:0;" lay-verify="required" disabled placeholder="学号" autocomplete="off" class="layui-input">' +
+						'</div>' +
+						' </div>' +
+						
+						'<div class="layui-form-item">' +
+						'<label class="layui-form-label">学生姓名</label>' +
+						'<div class="layui-input-block">' +
+						'<input type="text" name="name" required  lay-verify="required" ' +
+						' placeholder="名字" autocomplete="off" class="layui-input">' +
+						'</div>' +
+						' </div>' +
+
+						//view区域
+						'<div id="viewAcademy"></div> <br>' +
+
+						'<div class="layui-form-item" >' +
+						'<label class="layui-form-label">性别</label>' +
+						'<div class="layui-input-block">' +
+						'<input type="radio" name="sex" value="1" title="男">' +
+						'<input type="radio" name="sex" value="0" title="女">' +
+						'</div>' +
+						' </div>' +
+
+						'<div class="layui-form-item">' +
+						'<label class="layui-form-label">电话</label>' +
+						'<div class="layui-input-block">' +
+						'<input type="text" name="tel" required  lay-verify="required" ' +
+						' placeholder="电话" autocomplete="off" class="layui-input">' +
+						'</div>' +
+						' </div>' +
+
+						'<div class="layui-form-item">' +
+						'<label class="layui-form-label">备注信息</label>' +
+						'<div class="layui-input-block">' +
+						'<input type="text" name="memo" required  lay-verify="required" '+
+						' placeholder="备注信息" autocomplete="off" class="layui-input">' +
+						'</div>' +
+						' </div>' +
+						'  </form>' +
+						'</div>',
+					success: function() {
+						getAcademy();
+						form.render();
+						form.val("form_update", {
+							"student_id":data.student_id,
+							"name": data.name ,
+							"sex": data.sex,
+							"tel": data.tel,
+							"memo": data.memo
+						});
+						form.render();
+					},
+					yes: function() {
+						var JSONdata = JSON.parse(JSON.stringify($('#table_update').serializeObject()));
+						if (JSONdata.name == "" || JSONdata.sex == "" || JSONdata.tel == "" ||JSONdata.class =="") {
+							layer.msg("请先完善必需信息！");
+						} else {
+							$.ajax({
+								url: "/StudentManagement/updateStudent.studentm",
+								type: 'POST',
+								data: {
+									"id": data.id,
+									"name": JSONdata.name,
+									"sex": JSONdata.sex,
+									"tel": JSONdata.tel,
+									"klass": JSONdata.class,
+									"memo": JSONdata.memo
+								},
+								dataType: 'json',
+								success: function(res) {
+									if (res.ok) {
+										layer.msg(res.msg, {
+											shade: 0.1 ,
+											time: 5000, //5s后自动关闭
+											btn: '知道了',
+											btnAlign: 'c' //按钮居中
+										}, function(index) {
+											layer.close(index);
+											layer.closeAll();
+										});
+									} else {
+										layer.msg(res.msg);
+									}
+									table.reload('testReload');
+								}
+							})
+						}
+
+					},
+				});
+			} else if (obj.event === 'del') {
+				layer.confirm('真的确定删除此课程吗？', function(index) {
+					$.ajax({
+						url: "/StudentManagement/deleteStudent.studentm",
+						type: 'POST',
+						data: {
+							"id": data.id,
+							"order": "1"
+						},
+						dataType: 'json',
+						success: function(res) {
+							if (res.ok) {
+								layer.msg(res.msg, {
+									shade: 0.1 ,
+									time: 5000, //5s后自动关闭
+									btn: '知道了',
+									btnAlign: 'c' //按钮居中
+								}, function(index) {
+									layer.close(index);
+									layer.closeAll();
+								});
+							} else {
+								layer.msg(res.msg);
+							}
+							table.reload('testReload');
+						}
+					})
+					layer.close(index);
+				});
+			}
+		});
+		//获取所有学院请求方法
+		window.getAcademy = function() {
+			$.ajax({
+				url: '/StudentManagement/getClass.classm',
+				type: "GET",
+				dataType: 'json',
+				success: function(data) {
+					var academy = data;
+					var tselectdata1 = {
+						"academy_data": academy.data
+					};
+					var getTpl1 = scriptAcademy.innerHTML;
+					var view = document.getElementById('viewAcademy');
+					layui.laytpl(getTpl1).render(tselectdata1, function(html) {
+						view.innerHTML = html;
+						form.render();
+					});
+				},
+			});
+		}
+	});
+</script>
